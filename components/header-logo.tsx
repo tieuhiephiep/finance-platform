@@ -4,7 +4,7 @@ import Image from "next/image";
 export const HeaderLogo = () => {
   return (
     <Link href="/">
-      <div className="hidden lg:flex items-center">
+      <div className="hidden lg:flex items-center gap-x-2">
         <Image src="/logo.svg" alt="Logo" height={28} width={28} />
         <p className="font-semibold text-white text-2xl ml-2.5">
           Finance

@@ -1,0 +1,1750 @@
+e@WEBVTT
+
+00:00:01.232 --> 00:00:07.893
+So now that we've learned how HONO works, you can go ahead and leave the API route behind, right?
+
+
+00:00:07.933 --> 00:00:10.074
+So we're going to go back on the front end now.
+
+
+00:00:10.674 --> 00:00:13.714
+So if you made these authors and books, you can leave them.
+
+
+00:00:14.014 --> 00:00:16.755
+If you haven't made this, you didn't have to, right?
+
+
+00:00:16.795 --> 00:00:21.916
+So what I'm actually going to do is I'm just going to return this back to hello.
+
+
+00:00:22.896 --> 00:00:29.297
+And I'm going to go ahead and simply get the context and return c.json hello world.
+
+
+00:00:31.621 --> 00:00:38.306
+So just the most basic API route here, and I'm going to remove the authors and the books.
+
+
+00:00:40.048 --> 00:00:42.570
+And I will also remove the respective imports for that.
+
+
+00:00:42.947 --> 00:00:43.287
+There we go.
+
+
+00:00:43.387 --> 00:00:45.848
+So just the simplest implementation possible.
+
+
+00:00:46.149 --> 00:00:47.950
+And you can leave that behind for now.
+
+
+00:00:48.170 --> 00:00:49.430
+We're going to come back to this later.
+
+
+00:00:50.311 --> 00:00:51.772
+For now, let's go inside of the app.
+
+
+00:00:51.851 --> 00:00:53.373
+Let's go inside of the dashboard.
+
+
+00:00:53.933 --> 00:00:58.835
+So one more thing that the route groups are good for is that they can share layouts.
+
+
+00:00:59.276 --> 00:01:08.661
+So what we can do now is for every future route that is going to exist inside of the dashboard route group is going to share a unique layout.
+
+
+00:01:09.340 --> 00:01:12.402
+So let's go ahead and create not a unique layout.
+
+
+00:01:12.441 --> 00:01:14.523
+I wanted to say it's going to share a common layout.
+
+
+00:01:14.864 --> 00:01:16.944
+So layout.tsx.
+
+
+00:01:17.044 --> 00:01:19.325
+As you can see, we immediately get an error here.
+
+
+00:01:19.846 --> 00:01:22.927
+So the rules of layouts are similar to the rules of page.
+
+
+00:01:23.127 --> 00:01:24.968
+It needs to have a default export.
+
+
+00:01:25.188 --> 00:01:27.369
+So I'm going to call this dashboard layout.
+
+
+00:01:27.809 --> 00:01:31.051
+The naming does not matter because this is a default export.
+
+
+00:01:32.090 --> 00:01:37.994
+So just make sure you export something and let's for now return a div and say layout.
+
+
+00:01:40.123 --> 00:01:41.203
+So what's going on now?
+
+
+00:01:41.384 --> 00:01:45.528
+Why am I only getting the text layout rendered here?
+
+
+00:01:45.587 --> 00:01:46.929
+Let me zoom in so you can see.
+
+
+00:01:46.949 --> 00:01:52.535
+So it only says layout, but what I expect is that my user button is rendered, right?
+
+
+00:01:53.195 --> 00:01:56.959
+Or we can call this dashboard page.
+
+
+00:01:59.113 --> 00:02:01.416
+So how do I get that rendered here?
+
+
+00:02:01.696 --> 00:02:05.941
+Well, another rule of layout is that it needs to render the children.
+
+
+00:02:06.521 --> 00:02:12.468
+So let's quickly create the props, children to be a type of react.reactNode.
+
+
+00:02:13.288 --> 00:02:16.773
+And then in here, we are able to destructure those props.
+
+
+00:02:17.964 --> 00:02:30.113
+Children and instead of this we just render the children and there we go So now through this layout we render the dashboard page and every additional route 
+
+
+00:02:30.213 --> 00:02:41.802
+inside is gonna share this layout So whatever we create on top of here is gonna be reused so how about we go ahead and change this from being wrapped in 
+
+
+00:02:41.922 --> 00:02:46.805
+a big fragment and Instead of using div here, let's use main.
+
+
+00:02:46.825 --> 00:02:51.667
+And let's give it a class name of px3.
+
+
+00:02:52.467 --> 00:02:55.988
+And on large devices, it's going to be px14.
+
+
+00:02:57.008 --> 00:03:01.070
+And then what I want to do here is I want to create a header component.
+
+
+00:03:02.091 --> 00:03:07.813
+So let's go ahead inside of our components and let's create header.dsx.
+
+
+00:03:08.793 --> 00:03:11.174
+So inside of here, I'm going to export class header.
+
+
+00:03:13.721 --> 00:03:16.403
+And I'm going to return a div saying HeaderComponent.
+
+
+00:03:19.185 --> 00:03:25.088
+Now I can go back inside of App, Layout, and I can import Header from Component's Header.
+
+
+00:03:25.407 --> 00:03:26.149
+And there we go.
+
+
+00:03:26.529 --> 00:03:33.093
+So now all of my routes inside of Dashboard are going to have the HeaderComponent above them.
+
+
+00:03:33.393 --> 00:03:33.754
+Perfect.
+
+
+00:03:34.474 --> 00:03:36.315
+So we are now ready to start styling this.
+
+
+00:03:37.035 --> 00:03:41.878
+Instead of a div, we're going to use the header element, and let's give it a slight gradient.
+
+
+00:03:42.038 --> 00:03:46.260
+So background, gradient to bottom.
+
+
+00:03:46.661 --> 00:03:57.346
+So you can always hover over a class name to see if it actually exists in Tailwind, but that will only work if you have the Tailwind CSS IntelliSense extension 
+
+
+00:03:57.426 --> 00:03:58.787
+that I told you to install, I believe.
+
+
+00:04:00.088 --> 00:04:01.809
+So let's define from what color.
+
+
+00:04:01.949 --> 00:04:20.250
+So from blue, 700. blue 500 there we go so a slight gradient as you can see perfect let's give it a PX of 4 and a PY of 8 and I also want to define different 
+
+
+00:04:20.371 --> 00:04:31.880
+values for large devices so 14 and padding bottom of 36 there we go And now let's go ahead and let's just style this further.
+
+
+00:04:32.100 --> 00:04:38.944
+So I'm actually going to zoom out because I want to be looking at this as if it were a desktop view.
+
+
+00:04:39.824 --> 00:04:41.625
+So I recommend you do the same.
+
+
+00:04:42.005 --> 00:04:53.471
+So either expand your screen or zoom out until, well, just keep it, you know, a bit larger because when we go ahead and create our navigation,
+
+
+00:04:53.531 --> 00:04:57.153
+we're going to have separate navigation for mobile and separate for desktop, right?
+
+
+00:04:57.892 --> 00:05:00.837
+So, let's go ahead and create a div here with a class name.
+
+
+00:05:01.938 --> 00:05:03.380
+Max with screen.
+
+
+00:05:04.947 --> 00:05:07.468
+Excel and MX of auto.
+
+
+00:05:08.148 --> 00:05:09.888
+So what does this do?
+
+
+00:05:10.048 --> 00:05:20.951
+So if I create a text header here, you can see that at one point So let me just see at what on what at one point my header stops expanding,
+
+
+00:05:21.471 --> 00:05:21.731
+right?
+
+
+00:05:22.291 --> 00:05:25.492
+So that's what this does max with screen.
+
+
+00:05:25.812 --> 00:05:32.615
+So we are only going to handle the responsivity after a certain With of the monitor, right?
+
+
+00:05:32.855 --> 00:05:42.142
+So I don't want to support responsivity if the monitor is wider than this We're simply gonna push everything in the middle if it breaks From this right 
+
+
+00:05:42.162 --> 00:05:47.165
+you can see how header is expanding expanding expanding and now it stops expanding.
+
+
+00:05:47.325 --> 00:05:52.109
+So that's what this does Great now inside of here.
+
+
+00:05:52.349 --> 00:06:08.173
+Let's open up a new div with a class name and of full width flex item center justify between and a margin bottom of 14 and then in here another div which 
+
+
+00:06:08.193 --> 00:06:19.080
+is going to hold two elements together so for that i'm going to need flex again and i'm just going to give them a bigger gap between if we are on desktop 
+
+
+00:06:19.120 --> 00:06:34.404
+and now let's create a header logo component so inside of components let's create a header logo.dsx and inside of here i'm going to import link from next 
+
+
+00:06:35.384 --> 00:06:48.229
+link and i'm going to import image from next image and i'm going to export const header logo this is going to be a link with an href to the root page and 
+
+
+00:06:48.849 --> 00:06:59.452
+i div which for now can just say logo Let's go back inside of header and we can now import the header logo from dot slash header logo or components logo,
+
+
+00:06:59.833 --> 00:07:01.154
+however you prefer it.
+
+
+00:07:02.774 --> 00:07:06.975
+And now you should just have a link which says logo at the top.
+
+
+00:07:07.676 --> 00:07:14.998
+Let's go ahead and give it an image which we already used inside of our sign in and sign up components, logo.svg.
+
+
+00:07:15.798 --> 00:07:18.539
+So inside of here, let's give this div a class name.
+
+
+00:07:19.918 --> 00:07:30.341
+items center is going to be hidden by default right so that's why i told you to try and expand your browser because i want this to be visible on large 
+
+
+00:07:30.481 --> 00:07:40.865
+devices so hidden on mobile but when we hit the large breakpoint we give it flex like that and then inside of here let's render our image component with 
+
+
+00:07:40.945 --> 00:07:54.914
+a source of slash logo dot svg and out of logo and let's give it a height of 28 and width of 28. Below the image, let's give it a paragraph,
+
+
+00:07:55.314 --> 00:07:58.558
+finance, so that can be the name of your app, right?
+
+
+00:07:59.178 --> 00:08:01.060
+You can write here whatever you want.
+
+
+00:08:02.168 --> 00:08:13.299
+So I'm going to give this a font-semi-bold, text-white, text to Excel, and ml of 2.5. So if I expand this, there we go.
+
+
+00:08:13.720 --> 00:08:16.002
+We now have a nice logo.
+
+
+00:08:16.062 --> 00:08:19.525
+And whenever we click on this, it's going to redirect us to the root page.
+
+
+00:08:19.566 --> 00:08:22.508
+So right now, it has no effect because we are on the root page.
+
+
+00:08:23.109 --> 00:08:23.449
+Perfect.
+
+
+00:08:23.469 --> 00:08:26.593
+So we have our finance and it disappears on mobile.
+
+
+00:08:26.613 --> 00:08:31.598
+So we want that because as I told you, we're going to have a bit of a separate design on mobile.
+
+
+00:08:32.338 --> 00:08:32.679
+Perfect.
+
+
+00:08:32.699 --> 00:08:34.821
+So that's it for our header logo.
+
+
+00:08:35.301 --> 00:08:39.866
+So we can close everything here and let's get back inside of our header.
+
+
+00:08:40.146 --> 00:08:43.009
+So I said that two elements are going to be inside.
+
+
+00:08:43.029 --> 00:08:45.511
+The second element is the navigation element.
+
+
+00:08:46.152 --> 00:08:48.633
+So let's go ahead and create that inside of components.
+
+
+00:08:48.673 --> 00:08:57.395
+Let's create navigation, but at the SX right here, and I'm immediately going to mark this as use client because I'm going to be using some hooks here,
+
+
+00:08:57.635 --> 00:09:00.096
+not immediately, but definitely in a moment.
+
+
+00:09:00.956 --> 00:09:03.577
+And let's go ahead and just fix the import error here.
+
+
+00:09:03.597 --> 00:09:07.857
+So navigation and let's return native navigation.
+
+
+00:09:11.117 --> 00:09:19.974
+and I don't need a semicolon here and I can now import navigation from dot slash navigation or components navigation.
+
+
+00:09:21.135 --> 00:09:21.395
+Great.
+
+
+00:09:21.715 --> 00:09:26.599
+Now, instead of the navigation here, let's go ahead and let's define all of the routes that we are going to have.
+
+
+00:09:27.200 --> 00:09:31.523
+So I'm going to write export const, actually no need to export it, so we can just use routes.
+
+
+00:09:31.803 --> 00:09:33.405
+It's going to be an array of objects.
+
+
+00:09:34.145 --> 00:09:41.410
+First object is going to have an href of root page and a label of overview or dashboard, however you like it.
+
+
+00:09:42.131 --> 00:09:43.232
+Let's copy and paste this.
+
+
+00:09:43.673 --> 00:09:46.655
+And for the second one, we're going to have slash transactions.
+
+
+00:09:48.096 --> 00:09:50.278
+And that's going to lead us to transactions.
+
+
+00:09:52.591 --> 00:09:53.691
+Let's copy and paste this.
+
+
+00:09:54.431 --> 00:09:55.712
+Remember to add the columns.
+
+
+00:09:57.011 --> 00:09:57.712
+Sorry, the commas.
+
+
+00:09:58.872 --> 00:10:00.011
+Then we're going to have accounts.
+
+
+00:10:06.914 --> 00:10:07.174
+Whoops.
+
+
+00:10:08.014 --> 00:10:09.554
+Then we're going to have categories.
+
+
+00:10:16.736 --> 00:10:19.276
+And lastly, we're going to have the settings page.
+
+
+00:10:21.677 --> 00:10:22.037
+There we go.
+
+
+00:10:23.462 --> 00:10:23.782
+Perfect.
+
+
+00:10:23.802 --> 00:10:24.881
+So now we have that.
+
+
+00:10:25.423 --> 00:10:31.524
+And now I want to go ahead and I want to create a component called a nav button.
+
+
+00:10:32.285 --> 00:10:38.567
+So actually, before we do that, let's try and just iterate over this routes array so that we can work with that.
+
+
+00:10:38.947 --> 00:10:40.127
+So it's not going to be a div.
+
+
+00:10:40.527 --> 00:10:40.787
+Whoops.
+
+
+00:10:41.687 --> 00:10:42.908
+It's not going to be a div.
+
+
+00:10:42.968 --> 00:10:46.089
+It's going to be a nav element with a class name of hidden.
+
+
+00:10:47.125 --> 00:10:51.308
+on mobile, but flex or visible on large.
+
+
+00:10:52.328 --> 00:10:54.671
+And items are going to be centered.
+
+
+00:10:55.052 --> 00:11:02.857
+Gap between each of the element is going to be two and overflow XAuto in case we need to scroll.
+
+
+00:11:03.739 --> 00:11:05.140
+And now we're going to go over the routes.
+
+
+00:11:05.240 --> 00:11:06.641
+So routes.map.
+
+
+00:11:07.722 --> 00:11:09.283
+We get the individual route.
+
+
+00:11:10.184 --> 00:11:13.707
+And for now we can just write route.label.
+
+
+00:11:15.217 --> 00:11:16.918
+you can ignore the error for now.
+
+
+00:11:16.938 --> 00:11:20.280
+So expand your screen and you should be able to see on desktop mode.
+
+
+00:11:20.341 --> 00:11:27.206
+So expand that much that you can see the logo and then you should finally be able to see overview, transactions, accounts,
+
+
+00:11:27.266 --> 00:11:28.587
+categories and the settings.
+
+
+00:11:29.047 --> 00:11:38.594
+So now what we're going to do is instead of rendering them as a paragraph, we're going to reuse this href and label as props for a component called nav button.
+
+
+00:11:39.034 --> 00:11:42.416
+So remove the paragraph and create a nav button here.
+
+
+00:11:42.817 --> 00:11:44.077
+So it doesn't yet exist.
+
+
+00:11:44.977 --> 00:11:49.499
+First of all, give it the key of route.hrf because that's unique for each of our routes.
+
+
+00:11:50.199 --> 00:11:54.660
+And then give it an actual href to be route.hrf.
+
+
+00:11:55.581 --> 00:11:58.082
+And label is going to be route.label.
+
+
+00:11:59.182 --> 00:12:02.503
+And now let's go ahead and let's add our hook.
+
+
+00:12:02.783 --> 00:12:07.484
+So that's why I marked this as useClient called usePathName.
+
+
+00:12:08.024 --> 00:12:11.465
+So inside of here, I'm going to get the path name from usePathName.
+
+
+00:12:12.646 --> 00:12:13.026
+Like that.
+
+
+00:12:13.893 --> 00:12:16.227
+And I'm going to go ahead and call this is active.
+
+
+00:12:17.501 --> 00:12:20.943
+if path name is identical to route.hrap.
+
+
+00:12:21.223 --> 00:12:26.966
+So if you're confused about the use client connection with the hooks, I'm going to go back in a moment and explain this,
+
+
+00:12:27.066 --> 00:12:29.367
+but let's just resolve this error here.
+
+
+00:12:30.107 --> 00:12:35.670
+So instead of components folder, I'm going to create a nav-button.dsx file right here.
+
+
+00:12:36.471 --> 00:12:39.993
+And instead of here, well, let's just quickly export const nav button.
+
+
+00:12:40.513 --> 00:12:42.894
+So we don't have to have that error.
+
+
+00:12:42.934 --> 00:12:44.215
+So div nav button.
+
+
+00:12:45.445 --> 00:12:47.867
+And right now we're going to have prop errors.
+
+
+00:12:48.067 --> 00:12:50.808
+So how about we also wrap up defining the props?
+
+
+00:12:51.008 --> 00:12:52.469
+So type props in here.
+
+
+00:12:53.010 --> 00:12:54.831
+Let's give it an href of string.
+
+
+00:12:55.011 --> 00:12:56.972
+Let's give it a label of string.
+
+
+00:12:58.032 --> 00:13:02.175
+Is active of boolean.
+
+
+00:13:05.442 --> 00:13:08.904
+And let's go ahead and assign those props here.
+
+
+00:13:08.924 --> 00:13:10.344
+So props, there we go.
+
+
+00:13:10.505 --> 00:13:12.045
+So that should work fine.
+
+
+00:13:13.046 --> 00:13:18.949
+Let's go back inside of the navigation and let's import this to dot slash nav button or components nav button.
+
+
+00:13:19.109 --> 00:13:21.270
+I like to separate this from the global imports.
+
+
+00:13:22.190 --> 00:13:22.590
+There we go.
+
+
+00:13:23.111 --> 00:13:25.492
+So let's go ahead and try something.
+
+
+00:13:25.572 --> 00:13:29.335
+If I remove use client, there we go, I get an error here.
+
+
+00:13:29.475 --> 00:13:30.155
+What does it say?
+
+
+00:13:30.355 --> 00:13:34.158
+It says you're importing a component that needs use path name.
+
+
+00:13:34.718 --> 00:13:40.122
+It only works in a client component, but none of its parents are marked with use client.
+
+
+00:13:40.482 --> 00:13:44.424
+So they are server components by default, right?
+
+
+00:13:44.464 --> 00:13:51.208
+So if you want to learn more about that, you can follow the documentation on this error here where you will learn the fundamentals,
+
+
+00:13:51.249 --> 00:13:51.409
+right?
+
+
+00:13:51.828 --> 00:13:58.311
+So server components allow us to write UI and it can be rendered and optionally cached on the server.
+
+
+00:13:58.651 --> 00:14:04.273
+In Next.js, the rendering work is further split by route segments to enable streaming and blah, blah, blah.
+
+
+00:14:04.293 --> 00:14:05.633
+So you can read all about that.
+
+
+00:14:06.193 --> 00:14:13.475
+So what's important for you to understand if you're coming from a background which is not Next.js, meaning that if you're used to,
+
+
+00:14:13.495 --> 00:14:19.677
+you know, React and invite, React and Webpack, So that is a form of building single-page applications.
+
+
+00:14:19.777 --> 00:14:25.800
+What we're doing here is we are building applications with server components, right?
+
+
+00:14:26.140 --> 00:14:30.322
+So server components can be used, as we just read, to write UI.
+
+
+00:14:30.862 --> 00:14:35.884
+And, well, one cool thing about them is that you can directly fetch from the database inside of them.
+
+
+00:14:35.904 --> 00:14:40.026
+So you can imagine them as your get API route, if you want to.
+
+
+00:14:40.666 --> 00:14:51.913
+one thing that they cannot do is work in with interactivity and that also includes hooks so whenever you need a hook in a component you will mark that 
+
+
+00:14:51.933 --> 00:14:57.254
+as use client All right, when I save this, the error goes away.
+
+
+00:14:57.474 --> 00:15:00.514
+But let me just comment it out for a second just to discuss this.
+
+
+00:15:00.994 --> 00:15:06.836
+So why did they then say none of its parents are marked with use client?
+
+
+00:15:06.996 --> 00:15:08.056
+What does that mean?
+
+
+00:15:08.556 --> 00:15:16.278
+So if you want to, use client shouldn't exactly be explained as, all right, make this component interactive.
+
+
+00:15:16.798 --> 00:15:19.519
+Use client is more of a boundary.
+
+
+00:15:20.419 --> 00:15:24.300
+You open the client-server boundary at this point.
+
+
+00:15:24.820 --> 00:15:28.521
+So if you want to, you don't have to do it at the navigation level.
+
+
+00:15:29.001 --> 00:15:32.902
+You can do it, for example, in the parent, in the header level.
+
+
+00:15:33.222 --> 00:15:35.823
+So header is the one that renders the navigation.
+
+
+00:15:35.883 --> 00:15:48.287
+So if I were to mark the entire header as use client, That means that the boundary of client server has been opened and that allows me to use the hook 
+
+
+00:15:48.307 --> 00:15:52.989
+inside of navigation component without marking it specifically as use client.
+
+
+00:15:53.229 --> 00:15:54.830
+So I just wanted to quickly explain that.
+
+
+00:15:55.310 --> 00:16:02.912
+So now you might be thinking, all right, so if I ever mark something as use client, that means that nothing inside can ever be a server component.
+
+
+00:16:03.252 --> 00:16:07.212
+Well, it seems like that, but there is a trick to do that as well.
+
+
+00:16:07.352 --> 00:16:15.074
+You can insert a client component inside a server component inside of a client component.
+
+
+00:16:15.114 --> 00:16:17.714
+And we actually are going to do that in this tutorial.
+
+
+00:16:18.055 --> 00:16:20.055
+And you do that by using children.
+
+
+00:16:20.515 --> 00:16:21.015
+like this.
+
+
+00:16:21.035 --> 00:16:26.637
+So if you pass server components through children, then you can safely mark something as use client.
+
+
+00:16:27.218 --> 00:16:31.199
+All right, we're going to come to that example at some point and I'm going to explain it again.
+
+
+00:16:31.739 --> 00:16:34.020
+Now let's stop the confusion and let's do the following.
+
+
+00:16:34.540 --> 00:16:36.381
+In the header, we don't need use client.
+
+
+00:16:36.861 --> 00:16:41.125
+So if possible, try and make the most of your routes server-side rendered.
+
+
+00:16:41.605 --> 00:16:44.507
+My apologies, not server-side rendered, but server components.
+
+
+00:16:44.928 --> 00:16:48.290
+So yes, server components and server-side rendering is not the same thing.
+
+
+00:16:48.771 --> 00:16:53.514
+If you mark something as use client, that is still server-side rendered.
+
+
+00:16:54.175 --> 00:16:56.116
+It's just not a server component.
+
+
+00:16:56.617 --> 00:16:58.718
+So that's a big misconception that people have.
+
+
+00:16:59.179 --> 00:17:03.842
+Marking something as use client still means that it's going to be rendered on the server.
+
+
+00:17:04.002 --> 00:17:05.784
+It's just not a server component.
+
+
+00:17:06.960 --> 00:17:13.284
+Nevertheless, we need useClient inside of our navigation component because we want to access the usePathName hook.
+
+
+00:17:14.205 --> 00:17:17.287
+And we're going to use it to check whether our route is active or not.
+
+
+00:17:17.507 --> 00:17:22.150
+Now let's go inside of the nav button here and let's go ahead and give it some cool, cool styles.
+
+
+00:17:22.811 --> 00:17:27.454
+So first of all, let's destructure the href, the label and the isActive prop.
+
+
+00:17:29.446 --> 00:17:36.027
+And let's go ahead and let me see if I have inside of my UI, we already have the button component perfect.
+
+
+00:17:36.547 --> 00:17:38.308
+So let's render that button component.
+
+
+00:17:39.928 --> 00:17:42.968
+So from dot slash UI button or components UI button.
+
+
+00:17:44.609 --> 00:17:48.549
+And inside of here, we're going to add a link component from next link.
+
+
+00:17:49.109 --> 00:17:51.090
+We're going to give it an href of href.
+
+
+00:17:51.609 --> 00:17:54.170
+And inside of link, we are going to render the label.
+
+
+00:17:54.470 --> 00:17:57.391
+The link was imported from next slash link like this.
+
+
+00:17:58.442 --> 00:18:05.571
+Great, now let's go ahead and give this first of all as a child prop and then let's give it a size of small.
+
+
+00:18:06.292 --> 00:18:08.955
+Let's give it a variant of outline.
+
+
+00:18:10.223 --> 00:18:21.606
+and now let's give it a class name but not just any class name we are going to revisit in our lib utils this cn method which i told you was going to be 
+
+
+00:18:21.646 --> 00:18:33.625
+used whenever we need to dynamically change tailwind classes so technically we could be doing this we could open uh we could do this like is active then something,
+
+
+00:18:33.965 --> 00:18:35.205
+otherwise something.
+
+
+00:18:35.286 --> 00:18:36.566
+We could do that.
+
+
+00:18:37.086 --> 00:18:46.328
+But you're going to notice that very soon when working with different variants and dynamic classes, there's a lot of things that can go wrong.
+
+
+00:18:46.528 --> 00:18:55.231
+Especially that one thing people don't consider is that Tailwind has a just-in-time compiler, which means that you need to write classes in full.
+
+
+00:18:55.731 --> 00:18:59.872
+So a lot of people try to do some weird tricks with these ternaries and stuff.
+
+
+00:19:00.571 --> 00:19:11.378
+what works best is truly having this combination clsx and tailwind merge so we're going to use that so here's how that function works import cn from libutils 
+
+
+00:19:11.518 --> 00:19:22.905
+as i just did and open up this function in the first argument it's going to take all the default classes and then every additional argument can be a ternary 
+
+
+00:19:22.945 --> 00:19:27.284
+for example is active It can be something, otherwise this.
+
+
+00:19:27.984 --> 00:19:28.184
+Right.
+
+
+00:19:28.465 --> 00:19:29.746
+So that's how we're going to do that.
+
+
+00:19:29.986 --> 00:19:34.009
+So let's focus on the first argument here and let's define how we want our button to look.
+
+
+00:19:34.770 --> 00:19:35.971
+I want to give it a full width.
+
+
+00:19:36.752 --> 00:19:39.314
+On large, I want to give it an auto width.
+
+
+00:19:40.215 --> 00:19:41.836
+I want to give it a justify between.
+
+
+00:19:41.856 --> 00:19:44.178
+I want to give it a font normal.
+
+
+00:19:45.299 --> 00:19:51.825
+On hover, I want to give it a background white slash 20, meaning it's going to have an opacity.
+
+
+00:19:53.450 --> 00:19:55.992
+On hover, I also want to give it a text white.
+
+
+00:19:57.153 --> 00:19:59.854
+I want to remove any kind of border on the button.
+
+
+00:20:00.815 --> 00:20:08.980
+On focus visible, I want to remove the ring by using ring offset and setting it to zero.
+
+
+00:20:10.041 --> 00:20:17.006
+Again, on focus visible, I want to remove the ring by setting its color to transparent.
+
+
+00:20:18.927 --> 00:20:21.229
+I want to also remove the outline of the button.
+
+
+00:20:22.406 --> 00:20:24.787
+I wanna make the text white by default.
+
+
+00:20:26.247 --> 00:20:36.169
+On focus, I wanna change the background to be white slash 30. And I wanna make all of that a bit animated using the transition class.
+
+
+00:20:36.949 --> 00:20:46.472
+And now, if the element is active, I'm gonna give it a background white with opacity of 10. Otherwise, background is gonna be transparent.
+
+
+00:20:48.892 --> 00:20:51.433
+And besides this, let's also give it a text white.
+
+
+00:20:52.512 --> 00:21:02.481
+there we go let's try this out now perfect so now we can see how since this is an active route because we are on the root page it has a different style 
+
+
+00:21:02.541 --> 00:21:10.308
+as opposed to all the other ones and you can see how hover has its own style if you try and click on any of those you're going to get a 404 because we 
+
+
+00:21:10.368 --> 00:21:14.609
+didn't build any of those now What's missing now is the mobile view, right?
+
+
+00:21:14.790 --> 00:21:16.330
+So you can clearly see that here.
+
+
+00:21:16.830 --> 00:21:22.432
+So for that, we are going to need to have a separate component, uh, called a sheet.
+
+
+00:21:22.652 --> 00:21:24.693
+So let's go ahead inside of our.
+
+
+00:21:25.353 --> 00:21:26.093
+Terminal here.
+
+
+00:21:26.113 --> 00:21:37.217
+Yeah, let's do bun, uh, bun X shad CN UI latest ad sheet like this.
+
+
+00:21:40.334 --> 00:21:43.997
+And let's go ahead and import everything we need from that.
+
+
+00:21:45.578 --> 00:21:48.820
+And let me just not forget to run my app.
+
+
+00:21:49.601 --> 00:21:51.202
+So bun run dev.
+
+
+00:21:51.843 --> 00:21:52.282
+There we go.
+
+
+00:21:52.303 --> 00:21:58.888
+So inside of here, let's import everything we need from components UI.
+
+
+00:22:00.089 --> 00:22:00.569
+There we go.
+
+
+00:22:02.350 --> 00:22:08.475
+We are going to need the sheet itself, the content and the trigger.
+
+
+00:22:10.819 --> 00:22:11.179
+like that.
+
+
+00:22:12.040 --> 00:22:19.523
+And then I actually want to install one more package, which we're going to use a couple of times throughout the project.
+
+
+00:22:19.583 --> 00:22:22.904
+So bun add is going to be called the react use.
+
+
+00:22:23.244 --> 00:22:24.744
+Quick reminder, I'm using bun.
+
+
+00:22:24.945 --> 00:22:31.848
+If you're using node, you should write npm install or yarn add or pnpm, whatever it is.
+
+
+00:22:32.068 --> 00:22:32.228
+Right.
+
+
+00:22:33.349 --> 00:22:33.648
+All right.
+
+
+00:22:33.729 --> 00:22:36.430
+So make sure you add a react use package.
+
+
+00:22:37.691 --> 00:22:48.845
+And then in here, Let's from React use import use media like this.
+
+
+00:22:51.073 --> 00:22:54.975
+And I'm doing this in a wrong component, my apologies.
+
+
+00:22:55.315 --> 00:22:56.876
+So I'm doing this in nav button.
+
+
+00:22:57.416 --> 00:22:59.838
+Where I meant to do this was in the navigation component.
+
+
+00:22:59.998 --> 00:23:04.781
+So go back inside of the navigation component and add the sheet components here.
+
+
+00:23:04.801 --> 00:23:06.662
+So I'm going to remove them from the nav button.
+
+
+00:23:07.022 --> 00:23:09.303
+And same is true for this ReactUseImport.
+
+
+00:23:09.583 --> 00:23:12.365
+So not in the nav button, in the navigation.
+
+
+00:23:14.315 --> 00:23:15.475
+Whoops, there we go.
+
+
+00:23:16.356 --> 00:23:16.696
+Perfect.
+
+
+00:23:17.416 --> 00:23:21.018
+So now that we have that, we're going to go ahead and do the following.
+
+
+00:23:22.178 --> 00:23:28.780
+Let's go ahead and define whether our drawer is going to be opened or not.
+
+
+00:23:28.840 --> 00:23:34.483
+So it's open and set is open, use state from react by default, false.
+
+
+00:23:34.963 --> 00:23:38.164
+So just make sure you add the use state import here.
+
+
+00:23:40.196 --> 00:23:46.019
+And then what I want to do is I want to go ahead and add the router from useRouter.
+
+
+00:23:46.879 --> 00:23:49.159
+So that's going to come from NextNavigation.
+
+
+00:23:49.239 --> 00:23:53.621
+Make sure you don't accidentally import the useRouter from Next slash router.
+
+
+00:23:54.501 --> 00:23:55.601
+So NextNavigation.
+
+
+00:23:57.001 --> 00:23:57.402
+All right.
+
+
+00:23:58.002 --> 00:24:04.686
+And let's define isMobile to be useMedia if Open up parentheses.
+
+
+00:24:04.986 --> 00:24:08.507
+MaxWidth is 1024 pixels.
+
+
+00:24:09.007 --> 00:24:15.369
+And important for hydration, by default, let's assume that the view is not mobile.
+
+
+00:24:16.670 --> 00:24:21.853
+And then let's add onClick here to accept an href, which is a string.
+
+
+00:24:23.113 --> 00:24:26.994
+Router.push href.
+
+
+00:24:27.715 --> 00:24:30.016
+And set is open is going to be false.
+
+
+00:24:31.664 --> 00:24:34.345
+You're going to see why we need this in a moment.
+
+
+00:24:34.465 --> 00:24:39.907
+And that's because if we are on mobile, we're going to have a completely separate return happening here.
+
+
+00:24:39.928 --> 00:24:45.911
+So we're going to use our sheet component here, and we're going to control it using the isOpen boolean.
+
+
+00:24:46.651 --> 00:24:49.571
+And onOpenChange is going to call the setIsOpen.
+
+
+00:24:50.173 --> 00:24:51.453
+So just like this.
+
+
+00:24:53.054 --> 00:24:56.035
+Oh, inside of here, we need a trigger component.
+
+
+00:24:56.916 --> 00:24:58.557
+And for that, we're going to use a button.
+
+
+00:24:58.757 --> 00:25:00.277
+So make sure you import the button.
+
+
+00:25:00.377 --> 00:25:04.869
+I'm going to change the to go to components like this.
+
+
+00:25:07.172 --> 00:25:08.773
+So, components UI button.
+
+
+00:25:08.974 --> 00:25:09.394
+There we go.
+
+
+00:25:10.155 --> 00:25:11.517
+And let's go ahead and do the following.
+
+
+00:25:11.577 --> 00:25:13.519
+Let's give it a variant of outline.
+
+
+00:25:13.779 --> 00:25:15.601
+Let's give it a size of small.
+
+
+00:25:16.121 --> 00:25:18.404
+Let's give it a class name of font normal.
+
+
+00:25:19.144 --> 00:25:21.987
+Background white slash 10 on hover.
+
+
+00:25:22.186 --> 00:25:26.392
+Background white slash 20. Hover is going to have text white.
+
+
+00:25:30.780 --> 00:25:45.529
+border is not going to exist and we can just copy from our nav button the focus visible ones so those two focus visible ring offset zero and ring transparent 
+
+
+00:25:45.569 --> 00:25:58.391
+those two outline is going to be none text is going to be white focus vgy slash 30 and transition Like that.
+
+
+00:25:58.952 --> 00:26:01.916
+And I think we also need border none.
+
+
+00:26:02.698 --> 00:26:03.439
+There we go.
+
+
+00:26:03.499 --> 00:26:04.220
+We already have it.
+
+
+00:26:04.400 --> 00:26:04.601
+Great.
+
+
+00:26:05.871 --> 00:26:18.321
+so font normal bgy 10 on hover bgy 20 on hover we're gonna have text white border none the reused focus visible with ring offset zero and ring transparent 
+
+
+00:26:18.401 --> 00:26:30.090
+outline none text white and on focus background white slash 30 and transition great and inside we're gonna use a menu icon from lucid react so make sure 
+
+
+00:26:30.191 --> 00:26:32.393
+you've added this There we go.
+
+
+00:26:33.694 --> 00:26:44.782
+And let's go ahead and give this a class name of 84 and width 4. One cool thing in the new tailwind update is that this class name can now be replaced 
+
+
+00:26:44.863 --> 00:26:49.147
+with size 4. So that's the equivalent, right, if you want to.
+
+
+00:26:49.946 --> 00:26:54.051
+Great, so now we have a trigger, but now we need a content here.
+
+
+00:26:55.013 --> 00:27:07.898
+like this so inside of here let's go ahead and give it a side of left and let's give it a class name of px2 and let's open up our small navigation here 
+
+
+00:27:07.939 --> 00:27:19.523
+with a class name of flex flex column gap y of 2 and padding top of 6 so it gives a little space to the top because of the close button and now inside 
+
+
+00:27:19.604 --> 00:27:31.270
+of here let's go over our routes.map let's get the individual route And we are simply going to render a button component here like that.
+
+
+00:27:31.510 --> 00:27:34.311
+So I'm going to give this a variant.
+
+
+00:27:35.412 --> 00:27:38.094
+If route.href is equal to path name.
+
+
+00:27:38.114 --> 00:27:41.016
+In that case, it's going to be secondary.
+
+
+00:27:41.455 --> 00:27:42.797
+Otherwise it's going to be ghost.
+
+
+00:27:46.599 --> 00:27:51.182
+And let's go ahead and give it this a key route.href.
+
+
+00:27:56.201 --> 00:28:03.843
+and let's give it an onClick to be an arrow function which calls the onClick method and route.href like that.
+
+
+00:28:04.243 --> 00:28:08.284
+So why are we using onClick here instead of adding a link?
+
+
+00:28:08.924 --> 00:28:13.365
+Because link by itself will not close the drawer, right?
+
+
+00:28:14.005 --> 00:28:23.627
+So I want to handle the mobile view by going through our onClick method which will use the router hook to redirect and manually close the drawer.
+
+
+00:28:24.798 --> 00:28:25.338
+There we go.
+
+
+00:28:25.518 --> 00:28:28.079
+And inside of here, we just render route dot label.
+
+
+00:28:29.519 --> 00:28:31.240
+And I believe that should be it.
+
+
+00:28:31.560 --> 00:28:35.901
+So if I refresh my page, make sure you have your local host running here.
+
+
+00:28:36.661 --> 00:28:39.222
+So let's see if we did something wrong.
+
+
+00:28:39.242 --> 00:28:42.543
+So this seems to work, but nothing is appearing here.
+
+
+00:28:42.963 --> 00:28:43.463
+Let's see.
+
+
+00:28:44.463 --> 00:28:46.484
+Why is that happening right here?
+
+
+00:28:47.184 --> 00:28:49.204
+So I have max with 1024 pixels.
+
+
+00:28:49.244 --> 00:28:51.945
+I'm going to go ahead and console log.
+
+
+00:28:53.846 --> 00:28:57.087
+is mobile here and try and debug.
+
+
+00:29:00.747 --> 00:29:03.408
+Oh, looks like I just had to do a hard refresh.
+
+
+00:29:05.268 --> 00:29:06.988
+Yes, looks like it was just cache.
+
+
+00:29:07.789 --> 00:29:09.769
+So nothing I did fixed it.
+
+
+00:29:09.909 --> 00:29:10.169
+Okay.
+
+
+00:29:10.549 --> 00:29:18.290
+So if you want to, you can, if you have the same reason, let's go ahead and just do bun run dev together.
+
+
+00:29:18.310 --> 00:29:20.471
+It looks like it was some weird cache inside.
+
+
+00:29:21.431 --> 00:29:23.972
+So now, again, desktop works fine.
+
+
+00:29:24.572 --> 00:29:28.732
+But on mobile, now I have a drawer like this.
+
+
+00:29:29.393 --> 00:29:29.913
+Perfect.
+
+
+00:29:30.893 --> 00:29:39.895
+One thing that I might want to change is I want to move the text to be here in the beginning.
+
+
+00:29:40.375 --> 00:29:46.956
+So how about I go inside of my isMobile and how about I add a class name here.
+
+
+00:29:49.500 --> 00:29:51.462
+Pull width and justify start.
+
+
+00:29:52.303 --> 00:29:52.963
+There we go.
+
+
+00:29:53.604 --> 00:29:56.266
+So that now looks better in my opinion.
+
+
+00:29:56.386 --> 00:29:58.468
+So when I click overview, there we go.
+
+
+00:29:58.488 --> 00:30:04.393
+You can see how it closes the drawer and it's going to do that even in this 404 routes.
+
+
+00:30:04.994 --> 00:30:05.454
+Perfect.
+
+
+00:30:05.474 --> 00:30:09.318
+So that handles our navigation component right here.
+
+
+00:30:10.138 --> 00:30:13.661
+What we have to build now is the welcome message right here.
+
+
+00:30:13.902 --> 00:30:16.224
+And below that, we're going to have some filters.
+
+
+00:30:17.972 --> 00:30:21.415
+So before we wrap up the chapter, I want to do that.
+
+
+00:30:21.455 --> 00:30:26.440
+I want to add a little logout button here and a welcome message here.
+
+
+00:30:26.520 --> 00:30:28.863
+And we're going to leave the filters for later.
+
+
+00:30:29.603 --> 00:30:35.749
+So let's go ahead and go inside of our components navigation right here.
+
+
+00:30:35.769 --> 00:30:39.072
+It's not navigation header.
+
+
+00:30:39.893 --> 00:30:50.268
+so we have header logo and we have navigation and now what i want to do is outside of this div i want to add a user button component And I want to give 
+
+
+00:30:50.288 --> 00:30:53.529
+it an after sign out URL to go slash to the root page.
+
+
+00:30:53.689 --> 00:30:56.630
+So from clerk next JS import the user button.
+
+
+00:30:56.650 --> 00:31:03.151
+Uh, here's one thing that I don't like when I refresh, it doesn't exist for a second.
+
+
+00:31:03.331 --> 00:31:07.652
+So we can solve that by using the clerk loading and Clark loaded components.
+
+
+00:31:08.272 --> 00:31:10.953
+So Clark loading and Clark loaded.
+
+
+00:31:10.973 --> 00:31:16.674
+If it is loaded, we're going to display this.
+
+
+00:31:19.491 --> 00:31:26.553
+But if it is not, if it's still loading, in that case, let's add a loader to from Lucid react.
+
+
+00:31:29.114 --> 00:31:37.957
+And let's give it a class name, size eight, animate spin and text slate or hundred.
+
+
+00:31:38.737 --> 00:31:39.698
+So let's try it out now.
+
+
+00:31:40.640 --> 00:31:42.620
+When I refresh, there we go.
+
+
+00:31:42.781 --> 00:31:46.061
+We have a nice little spinner and from here we can sign out.
+
+
+00:31:46.401 --> 00:31:46.721
+Perfect.
+
+
+00:31:47.482 --> 00:31:49.982
+Now let's go ahead and let's create a welcome message.
+
+
+00:31:50.662 --> 00:32:00.385
+So, outside of this div right here, let's add a welcome MSG like this.
+
+
+00:32:01.733 --> 00:32:04.235
+So I'm going to go ahead and create a new component.
+
+
+00:32:04.375 --> 00:32:07.718
+Welcome msg.tsx.
+
+
+00:32:08.799 --> 00:32:17.326
+And let's use client here because we are going to need to use a hook called use user from clerk next.js.
+
+
+00:32:18.146 --> 00:32:20.408
+Let's export const welcome message.
+
+
+00:32:21.969 --> 00:32:27.334
+And let's destructure the user and is loaded from use user right here.
+
+
+00:32:28.955 --> 00:32:31.077
+Let's return a div element.
+
+
+00:32:33.719 --> 00:32:42.501
+And inside of here, we're going to have an H2 element, which will say, welcome back below that a paragraph.
+
+
+00:32:42.861 --> 00:32:52.523
+This is your financial overview report or whatever message you prefer.
+
+
+00:32:53.523 --> 00:32:58.265
+So go back inside of the header and import the dot slash welcome message.
+
+
+00:32:58.745 --> 00:32:59.905
+I'm going to use the components.
+
+
+00:33:00.447 --> 00:33:00.967
+And there we go.
+
+
+00:33:00.987 --> 00:33:03.268
+We now have the welcome message here.
+
+
+00:33:03.908 --> 00:33:09.310
+So I'm going to go ahead and give this div a class name of space Y2 and margin bottom of four.
+
+
+00:33:09.690 --> 00:33:15.272
+I'm going to give the H2 element a class name of text to Excel on large.
+
+
+00:33:15.372 --> 00:33:17.213
+It's going to be text for Excel.
+
+
+00:33:18.253 --> 00:33:19.673
+Text is going to be white.
+
+
+00:33:19.693 --> 00:33:22.774
+Point is going to be medium.
+
+
+00:33:23.795 --> 00:33:24.175
+Flex.
+
+
+00:33:25.935 --> 00:33:27.056
+Actually, no need for that.
+
+
+00:33:28.109 --> 00:33:44.614
+right and for the paragraph we're gonna give it a class name of text small lg text base and text is gonna go ahead and be a specific color 89b6fd like 
+
+
+00:33:46.554 --> 00:33:56.240
+this there we go so this looks nice What I want to do now is I want the welcome back message to Write out the user's name.
+
+
+00:33:56.480 --> 00:33:57.921
+So how about we do this?
+
+
+00:33:58.081 --> 00:34:09.324
+Let's go ahead and At the end of this welcome back open an object and write if is loaded I well, I told you to open an object what I meant to say was open 
+
+
+00:34:09.364 --> 00:34:09.925
+curly brackets, right?
+
+
+00:34:10.705 --> 00:34:27.228
+So if it's loaded Add a comma and the space otherwise just space so it's important that you add space here and then chain along user question mark first 
+
+
+00:34:28.129 --> 00:34:39.608
+name and then if you want to you can add additional space and you can add a little emoji like i'm gonna do like this like a wave And there we go.
+
+
+00:34:39.628 --> 00:34:41.068
+So this will read the name.
+
+
+00:34:41.149 --> 00:34:44.811
+I have this weird name from my Gmail because I didn't want to enter my name.
+
+
+00:34:45.271 --> 00:34:49.233
+So this will load the name from your Google account.
+
+
+00:34:50.254 --> 00:34:54.936
+If you used email login, perhaps your first name won't exist.
+
+
+00:34:55.036 --> 00:35:00.139
+So if you want to, you know, you can just say welcome back with a smile like this.
+
+
+00:35:00.199 --> 00:35:02.561
+You can just do this as well, however you want.
+
+
+00:35:03.985 --> 00:35:04.265
+Great.
+
+
+00:35:04.325 --> 00:35:09.969
+So that wraps up our header component, our navigation.
+
+
+00:35:10.089 --> 00:35:10.550
+Perfect.
+
+
+00:35:10.610 --> 00:35:17.154
+So what's going to be below this are two filters, the account filter and the date filter, right?
+
+
+00:35:17.554 --> 00:35:20.737
+But I kind of want to work on them later, right?
+
+
+00:35:21.297 --> 00:35:32.593
+What I want to build next is I want to start actually working on setting up our database and setting up our schema so that we can create our first transaction,
+
+
+00:35:33.013 --> 00:35:33.194
+right?
+
+
+00:35:33.334 --> 00:35:34.676
+That's what I want to do next.
+
+
+00:35:35.937 --> 00:35:36.939
+Great, great job.
+
+

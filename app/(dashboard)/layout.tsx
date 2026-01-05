@@ -1,21 +1,18 @@
-import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/nextjs'
+import { Header } from "@/components/header";
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+type Props = {
+  children: React.ReactNode;
+};
+
+const DashboardLayout = ({ children }: Props) => {
   return (
     <>
-      {/* 1. Nếu đã đăng nhập: Cho phép hiển thị các trang bên trong (Dashboard, etc.) */}
-      <SignedIn>
+      <Header />
+      <main className="px-3 lg:px-14">
         {children}
-      </SignedIn>
-
-      {/* 2. Nếu chưa đăng nhập: Lập tức đá về trang Sign-in */}
-      <SignedOut>
-        <RedirectToSignIn />
-      </SignedOut>
+      </main>
     </>
-  )
-}
+  );
+};
+
+export default DashboardLayout;

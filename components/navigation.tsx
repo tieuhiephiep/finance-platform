@@ -1,10 +1,12 @@
-"use client";
+"use client"; // Cần dùng hook nên phải là client component [cite: 66]
 
-import { usePathname } from "next/navigation";
-import { useMedia } from "react-use"; // Bạn có thể cần cài thêm: npm i react-use
+import { usePathname, useRouter } from "next/navigation";
+import { useMedia } from "react-use"; // Cần cài đặt react-use [cite: 187]
 import { useState } from "react";
-// Import các component UI từ shadcn (Sheet, Button...) sẽ bổ sung sau
-// Tạm thời hiển thị danh sách đơn giản
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import { Menu } from "lucide-react";
+import { NavButton } from "@/components/nav-button";
 
 const routes = [
   { href: "/", label: "Overview" },
@@ -15,20 +17,56 @@ const routes = [
 ];
 
 export const Navigation = () => {
-  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+  
+  // Kiểm tra nếu màn hình nhỏ hơn 1024px
+  const isMobile = useMedia("(max-width: 1024px)", false);
 
-  // Todo: Sẽ bổ sung logic Responsive (Mobile/Desktop) sau
+  const onClick = (href: string) => {
+    router.push(href);
+    setIsOpen(false);
+  };
+
+  // Render Mobile Menu (Sheet)
+  if (isMobile) {
+    return (
+      <Sheet open={isOpen} onOpenChange={setIsOpen}>
+        <SheetTrigger>
+          <Button variant="outline" size="sm" className="font-normal bg-white/10 hover:bg-white/20 hover:text-white border-none focus-visible:ring-offset-0 focus-visible:ring-transparent outline-none text-white focus:bg-white/30 transition">
+            <Menu className="size-4" />
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="left" className="px-2">
+           <nav className="flex flex-col gap-y-2 pt-6">
+             {routes.map((route) => (
+               <Button
+                 key={route.href}
+                 variant={route.href === pathname ? "secondary" : "ghost"}
+                 onClick={() => onClick(route.href)}
+                 className="w-full justify-start"
+               >
+                 {route.label}
+               </Button>
+             ))}
+           </nav>
+        </SheetContent>
+      </Sheet>
+    );
+  }
+
+  // Render Desktop Menu
   return (
-    <div className="hidden lg:flex items-center gap-x-2 overflow-x-auto">
+    <nav className="hidden lg:flex items-center gap-x-2 overflow-x-auto">
       {routes.map((route) => (
-         <button
-            key={route.href}
-            className="text-white bg-transparent hover:bg-white/20 hover:text-white border-none outline-none font-normal transition px-4 py-2 rounded-md"
-         >
-           {route.label}
-         </button>
+        <NavButton
+          key={route.href}
+          href={route.href}
+          label={route.label}
+          isActive={pathname === route.href}
+        />
       ))}
-    </div>
+    </nav>
   );
 };
